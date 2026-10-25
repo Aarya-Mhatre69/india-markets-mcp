@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "india-markets-mcp"
+version = "0.1.0"
+description = "MCP server giving AI agents quotes, technical signals and a transparent trend regime for Indian (NSE/BSE) equities, from public data."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Aarya Mhatre" }]
+dependencies = [
+    "fastmcp>=2.0",
+    "pandas>=2.0",
+    "yfinance>=0.2.40",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+india-markets-mcp = "india_markets_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/india_markets_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
