@@ -55,12 +55,14 @@ def classify_regime(close: pd.Series) -> dict:
     slope200 = float(sma(close, 200).iloc[-1] - sma(close, 200).iloc[-21])
 
     above50, above200 = last > ma50, last > ma200
-    if above50 and above200 and ma50 > ma200:
+    if above50 and above200 and ma50 > ma200 and slope200 > 0:
         label = "uptrend"
-    elif not above50 and not above200 and ma50 < ma200:
+    elif not above50 and not above200 and ma50 < ma200 and slope200 < 0:
         label = "downtrend"
-    elif above200:
+    elif above200 and slope200 > 0:
         label = "pullback_in_uptrend"
+    elif above200:
+        label = "transition_above_falling_200dma"
     else:
         label = "recovery_below_200dma"
 
@@ -70,6 +72,8 @@ def classify_regime(close: pd.Series) -> dict:
         "sma50": round(ma50, 2),
         "sma200": round(ma200, 2),
         "sma200_slope_21d": round(slope200, 2),
-        "rules": "uptrend: close>50DMA>200DMA | downtrend: close<50DMA<200DMA | "
-        "else pullback if close>200DMA, otherwise recovery",
+        "rules": "uptrend: close>50DMA>200DMA and 200DMA rising | "
+        "downtrend: close<50DMA<200DMA and 200DMA falling | "
+        "otherwise: above 200DMA -> pullback_in_uptrend if 200DMA rising else "
+        "transition_above_falling_200dma; below 200DMA -> recovery_below_200dma",
     }
