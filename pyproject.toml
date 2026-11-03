@@ -10,6 +10,12 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Aarya Mhatre" }]
+keywords = ["mcp", "mcp-server", "india", "nse", "stocks", "fastmcp"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Office/Business :: Financial",
+]
 dependencies = [
     "fastmcp>=2.0",
     "pandas>=2.0",
@@ -18,6 +24,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/Aarya-Mhatre69/india-markets-mcp"
+Issues = "https://github.com/Aarya-Mhatre69/india-markets-mcp/issues"
 
 [project.scripts]
 india-markets-mcp = "india_markets_mcp.server:main"
