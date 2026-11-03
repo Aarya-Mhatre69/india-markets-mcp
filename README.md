@@ -15,6 +15,12 @@ Indian equities and get simple, **transparent** technical signals. Built on publ
 | `get_quote(symbol)` | Latest close, daily change, 52-week range, volume |
 | `get_signals(symbol)` | RSI(14), 30-day volatility, max drawdown, 12-1 momentum, and a rule-based trend regime |
 | `compare_symbols(symbols, period)` | Rank 2-10 symbols by return, with volatility and drawdown |
+| `get_fundamentals(symbol)` | Market cap (INR crore), P/E, P/B, ROE, debt/equity, dividend yield, sector |
+| `compare_fundamentals(symbols)` | Side-by-side valuation of 2-10 symbols, cheapest P/E first |
+| `sector_peers(symbol)` | A large-cap stock vs illustrative same-sector peers: median P/E and P/B, and its premium |
+
+Fundamentals fields can be `null` (loss-making companies, new listings, or gaps in Yahoo's data). `sector_peers` uses a
+small hand-picked peer map in `sectors.py`, not an official classification, so edit it if you disagree with a grouping.
 
 Symbols: `RELIANCE` → `RELIANCE.NS`; `TCS.BO` and `^NSEI` pass through; `NIFTY`, `BANKNIFTY`, `SENSEX` map to indices.
 
