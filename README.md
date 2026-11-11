@@ -27,6 +27,12 @@ Symbols: `RELIANCE` → `RELIANCE.NS`; `TCS.BO` and `^NSEI` pass through; `NIFTY
 The regime label is deliberately a plain rule (close vs the 50/200-day averages and the 200-day slope) and the output
 includes the rule text, so an agent can explain *why* a label was chosen.
 
+## Agent skill
+
+`skills/india-markets/SKILL.md` is an optional [agent skill](https://docs.claude.com/en/docs/claude-code/skills) that teaches an
+agent when to call each tool, how to read units and `null`s, and keeps answers to data only (no buy/sell advice).
+Copy the folder into `.claude/skills/` (Claude Code) or your agent's skills directory.
+
 ## Reliability notes
 
 Data comes from Yahoo Finance through the unofficial `yfinance` library, which can rate-limit or break without notice.
