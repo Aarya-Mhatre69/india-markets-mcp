@@ -23,20 +23,23 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 
 ## See it work
 
-> **You:** How is TCS doing, and does it look cheap versus its IT peers?
+> **You:** Can you give me the price of TCS, and is it a good time to buy?
 >
-> **Claude** *(calls `get_quote`, `get_signals`, `sector_peers`)*:
-> TCS closed at ₹2,407.50, down 1.43% on the day and 24.5% below its 52-week high. RSI is 50.7 (neutral). Price sits above a still-falling 200-day average, so the trend is **mixed, not an uptrend**. Against the illustrative IT peer group it trades at a P/E premium to the peer median.
+> **Agent** *(calls the india-markets tools)*:
+> TCS closed at ₹2,407.50 on 13 Nov 2026, down 1.43% on the day. Whether it's a good time to buy is your decision. I can't give buy, sell or hold advice, but here is where the stock stands.
 >
 > | Metric | Value |
 > |---|---|
 > | 52-week range | ₹1,961.36 – ₹3,187.34 |
+> | Distance from 52-week high | −24.5% |
+> | RSI(14) | 50.7 (neutral) |
 > | 30-day volatility (annualised) | 32.8% |
+> | 50-day / 200-day average | ₹2,287.43 / ₹2,366.05 |
 > | Market cap | ₹8,71,055 crore |
->
-> *Data from public sources, may be delayed or inaccurate. Not investment advice.*
 
-*(Example output from a real session; numbers move with the market.)*
+*(Condensed from a real session using the bundled skill, so the agent reports facts instead of advice. Numbers move with the market.)*
+
+▶ **[Watch the 20-second version with sound](docs/demo.mp4)**
 
 ## Why this one
 
