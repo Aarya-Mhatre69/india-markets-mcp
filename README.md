@@ -13,6 +13,12 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 
 </div>
 
+<div align="center">
+
+<img src="docs/demo.gif" alt="Demo: asking an AI agent about TCS and getting live NSE data" width="760">
+
+</div>
+
 ---
 
 ## See it work
