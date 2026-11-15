@@ -4,3 +4,8 @@ __pycache__/
 .pytest_cache/
 dist/
 dist/
+
+# local tooling and generated media
+.claude/
+skills-lock.json
+brag-output/

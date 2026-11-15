@@ -30,6 +30,24 @@ def compare_symbols(symbols: list[str], period: str = "1y") -> list[dict]:
     return core.compare(symbols, period)
 
 
+@mcp.tool
+def get_fundamentals(symbol: str) -> dict:
+    """Valuation snapshot: market cap (INR crore), P/E, P/B, ROE, debt/equity, dividend yield, sector."""
+    return core.get_fundamentals(symbol)
+
+
+@mcp.tool
+def compare_fundamentals(symbols: list[str]) -> list[dict]:
+    """Side-by-side valuation of 2-10 symbols, cheapest trailing P/E first."""
+    return core.compare_fundamentals(symbols)
+
+
+@mcp.tool
+def sector_peers(symbol: str) -> dict:
+    """Compare a large-cap stock with illustrative same-sector peers: median P/E and P/B and its premium."""
+    return core.sector_peers(symbol)
+
+
 def main() -> None:
     mcp.run()
 
