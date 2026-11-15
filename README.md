@@ -6,6 +6,7 @@
 Quotes, transparent technical signals, valuation and sector comparison for NSE/BSE, over [MCP](https://modelcontextprotocol.io). No API keys.
 
 [![CI](https://github.com/Aarya-Mhatre69/india-markets-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Aarya-Mhatre69/india-markets-mcp/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/india-markets-mcp.svg)](https://pypi.org/project/india-markets-mcp/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![MCP](https://img.shields.io/badge/MCP-server-8A2BE2)
@@ -72,16 +73,12 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 
 ## Install
 
-**Claude Desktop / Claude Code / Cursor** (any MCP client). Install, then add the server:
-
-```bash
-pip install git+https://github.com/Aarya-Mhatre69/india-markets-mcp
-```
+**Claude Desktop / Claude Code / Cursor** (any MCP client). The quickest way is [`uvx`](https://docs.astral.sh/uv/), which needs no install step:
 
 ```json
 {
   "mcpServers": {
-    "india-markets": { "command": "india-markets-mcp" }
+    "india-markets": { "command": "uvx", "args": ["india-markets-mcp"] }
   }
 }
 ```
@@ -89,10 +86,16 @@ pip install git+https://github.com/Aarya-Mhatre69/india-markets-mcp
 With Claude Code you can register it in one line:
 
 ```bash
-claude mcp add india-markets -- india-markets-mcp
+claude mcp add india-markets -- uvx india-markets-mcp
 ```
 
-If the command isn't on your PATH, use the full path to the executable (for a venv: `.venv/Scripts/india-markets-mcp.exe` on Windows, `.venv/bin/india-markets-mcp` elsewhere).
+Prefer pip?
+
+```bash
+pip install india-markets-mcp
+```
+
+then use `"command": "india-markets-mcp"` in the config above. If that command isn't on your PATH, use the full path to the executable (for a venv: `.venv/Scripts/india-markets-mcp.exe` on Windows, `.venv/bin/india-markets-mcp` elsewhere).
 
 ### Optional: the agent skill
 
