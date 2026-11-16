@@ -29,6 +29,19 @@ def test_fundamentals_converts_units_and_keeps_missing_as_none():
     assert out["dividend_yield_pct"] is None
 
 
+def test_dividend_yield_is_computed_from_rate_and_price_not_yahoos_ambiguous_field():
+    # Yahoo's dividendYield has been a fraction in some yfinance versions and a percent in others
+    for yahoo_field in (0.0199, 1.99):
+        out = core.fundamentals_from_info("tcs", info("TCS", dividendYield=yahoo_field, dividendRate=48.0, currentPrice=2422.0))
+        assert out["dividend_yield_pct"] == 1.98
+
+
+def test_dividend_yield_is_none_when_inputs_missing_or_invalid():
+    assert core.fundamentals_from_info("x", info("X", dividendYield=1.5))["dividend_yield_pct"] is None
+    assert core.fundamentals_from_info("x", info("X", dividendRate=5.0, currentPrice=0))["dividend_yield_pct"] is None
+    assert core.fundamentals_from_info("x", info("X", dividendRate=True, currentPrice=100))["dividend_yield_pct"] is None
+
+
 def test_compare_sorts_by_pe_with_missing_pe_last():
     infos = {
         "AAA": info("A", pe=30),

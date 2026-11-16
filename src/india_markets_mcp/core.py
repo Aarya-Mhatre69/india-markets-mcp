@@ -78,6 +78,20 @@ def _num(info: dict, key: str, digits: int = 2) -> float | None:
     return round(float(value), digits)
 
 
+def _dividend_yield_pct(info: dict) -> float | None:
+    """Indicated yield = annual dividend per share / price, as a percentage.
+
+    Computed rather than read from Yahoo's `dividendYield`, whose unit (fraction vs percent)
+    has changed between yfinance versions. Missing inputs give None, never a guess.
+    """
+    rate = info.get("dividendRate")
+    price = info.get("currentPrice") or info.get("regularMarketPrice")
+    for v in (rate, price):
+        if isinstance(v, bool) or not isinstance(v, (int, float)):
+            return None
+    return round(rate / price * 100, 2) if price > 0 else None
+
+
 def fundamentals_from_info(symbol: str, info: dict) -> dict:
     """Valuation snapshot. Missing fields (common for loss-making or new listings) are None."""
     cap = info.get("marketCap")
@@ -93,7 +107,7 @@ def fundamentals_from_info(symbol: str, info: dict) -> dict:
         "pb": _num(info, "priceToBook"),
         "roe_pct": None if _num(info, "returnOnEquity", 4) is None else round(info["returnOnEquity"] * 100, 1),
         "debt_to_equity": _num(info, "debtToEquity"),
-        "dividend_yield_pct": _num(info, "dividendYield"),
+        "dividend_yield_pct": _dividend_yield_pct(info),
     }
 
 
