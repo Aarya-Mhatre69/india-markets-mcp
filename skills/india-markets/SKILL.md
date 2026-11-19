@@ -12,6 +12,7 @@ This skill reports facts and simple, rule-based signals. It is **not investment 
 
 | The user wants... | Call |
 |---|---|
+| The ticker for a company name ("Infosys", "HDFC Bank") | `search_symbol` |
 | Latest price, day change, 52-week range | `get_quote` |
 | Trend, RSI, volatility, drawdown, momentum | `get_signals` |
 | Which of several stocks returned more | `compare_symbols` |
@@ -20,7 +21,7 @@ This skill reports facts and simple, rule-based signals. It is **not investment 
 | Is a large-cap cheap or expensive vs its sector | `sector_peers` |
 
 Symbols: pass NSE tickers without a suffix (`RELIANCE`, `TCS`). `NIFTY`, `BANKNIFTY` and `SENSEX` are indices.
-Use `.BO` for BSE (`TCS.BO`). A company name is not a ticker: resolve it yourself first (for example "Infosys" is `INFY`).
+Use `.BO` for BSE (`TCS.BO`). A company name is not a ticker: if you are not certain of it, call `search_symbol` first and prefer the NSE listing. Several listings can match one company, so check the names before choosing.
 
 ## Workflow
 
@@ -29,7 +30,7 @@ Use `.BO` for BSE (`TCS.BO`). A company name is not a ticker: resolve it yoursel
 3. For "is X cheap/expensive", use `sector_peers` and state the peer group is illustrative.
 4. For "which is better" between 2 to 10 stocks, use `compare_symbols` for performance and `compare_fundamentals` for valuation. Say which you used.
 5. If a tool fails, read the error message (you will see text, not an exception class):
-   - "no data for ..." means the symbol is wrong: fix it or ask the user.
+   - "no data for ..." means the symbol is wrong: look it up with `search_symbol` or ask the user.
    - "data source failed ... after 3 attempts" means the upstream source is down or rate-limiting: say so and offer to retry later.
    - "is not in the built-in peer groups" (from `sector_peers`) means use `compare_fundamentals` with a peer list you choose, and say so.
    - "provide between 2 and 10 symbols" means adjust the list.
@@ -48,7 +49,7 @@ Use `.BO` for BSE (`TCS.BO`). A company name is not a ticker: resolve it yoursel
 
 ## Guardrails (always apply)
 
-- Do not tell the user to buy, sell, hold, or "accept/avoid" a stock, and do not give price targets or return forecasts.
+- Never recommend buying, selling, holding or avoiding a stock, and never give price targets or return forecasts.
   If asked "should I buy X?", give the relevant facts and signals, explain what they do and do not tell, and say the decision is theirs.
   For personal advice, point them to a SEBI-registered investment adviser.
 - Do not describe a signal as predictive ("RSI is 74 so it will fall"). Describe what it measures.

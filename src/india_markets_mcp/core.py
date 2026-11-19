@@ -57,6 +57,38 @@ def compare_from_histories(frames: dict[str, pd.DataFrame]) -> list[dict]:
     return sorted(rows, key=lambda r: r["return_pct"], reverse=True)
 
 
+_EXCHANGES = {"NSI": "NSE", "BSE": "BSE"}
+_TYPES = {"EQUITY", "INDEX", "ETF"}
+
+
+def matches_from_quotes(quotes: list[dict], limit: int = 8) -> list[dict]:
+    """Keep NSE/BSE equities, indices and ETFs; NSE first. `symbol` works directly in the other tools."""
+    rows = []
+    for q in quotes:
+        exchange = _EXCHANGES.get(q.get("exchange"))
+        ticker = q.get("symbol")
+        kind = str(q.get("quoteType") or "").upper()
+        if not exchange or not ticker or kind not in _TYPES:
+            continue
+        rows.append(
+            {
+                "symbol": ticker[:-3] if ticker.endswith(".NS") else ticker,
+                "yahoo_ticker": ticker,
+                "name": q.get("shortname") or q.get("longname"),
+                "exchange": exchange,
+                "type": kind.lower(),
+            }
+        )
+    rows.sort(key=lambda r: r["exchange"] != "NSE")  # stable: keeps Yahoo's relevance order within each exchange
+    return rows[:limit]
+
+
+def search_symbol(query: str, limit: int = 8) -> list[dict]:
+    if not 1 <= limit <= 20:
+        raise ValueError("limit must be between 1 and 20")
+    return matches_from_quotes(data.search_instruments(query), limit)
+
+
 def get_quote(symbol: str) -> dict:
     return quote_from_history(symbol, data.fetch_history(symbol, period="1y"))
 

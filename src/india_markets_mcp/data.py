@@ -102,6 +102,24 @@ def fetch_history(symbol: str, period: str = "2y", interval: str = "1d") -> pd.D
     )
 
 
+def _download_search(query: str, limit: int) -> list[dict] | None:
+    return yf.Search(query, max_results=limit, news_count=0).quotes or None
+
+
+def search_instruments(query: str, limit: int = 20) -> list[dict]:
+    """Raw Yahoo search hits for a company name or partial ticker, cached and retried.
+
+    Returns an empty list when nothing matches; DataSourceError if the upstream keeps failing.
+    """
+    q = query.strip()
+    if not q:
+        raise ValueError("query must not be empty")
+    try:
+        return _cached_fetch(("search", q.lower(), limit), f"search {q!r}", lambda: _download_search(q, limit), query)
+    except SymbolNotFoundError:
+        return []
+
+
 def _download_info(ticker: str) -> dict | None:
     info = yf.Ticker(ticker).info
     # Yahoo returns a near-empty dict for unknown tickers.

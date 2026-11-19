@@ -48,13 +48,14 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 - **Signals you can audit.** The trend regime is a plain rule on the 50/200-day averages and the 200-day slope, and the tool returns the rule text, so the agent can explain *why*, not just emit a label.
 - **Honest about gaps.** Missing data is `null`, never guessed. Unknown tickers and upstream outages raise clear errors.
 - **Polite to the data source.** 5-minute cache, 3 retries with backoff, bounded fan-out.
-- **Tested offline.** Indicator and tool logic is pure pandas with 34 tests, run in CI on Linux, macOS and Windows.
+- **Tested offline.** Indicator and tool logic is pure pandas with 50 tests (including contract tests for the tool schemas), run in CI on Linux, macOS and Windows.
 - **Comes with an agent skill** that teaches the agent when to use each tool and keeps answers to facts, not buy/sell calls.
 
 ## Tools
 
 | Tool | What it does |
 |---|---|
+| `search_symbol(query)` | Find a ticker from a company name ("Infosys" → `INFY`): NSE/BSE equities, indices and ETFs |
 | `get_quote(symbol)` | Latest close, daily change, 52-week range, volume |
 | `get_signals(symbol)` | RSI(14), 30-day volatility, max drawdown, 12-1 momentum, rule-based trend regime |
 | `compare_symbols(symbols, period)` | Rank 2-10 symbols by return, with volatility and drawdown |
@@ -64,8 +65,13 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 
 **Symbols:** `RELIANCE` → `RELIANCE.NS` · `TCS.BO` and `^NSEI` pass through · `NIFTY`, `BANKNIFTY`, `SENSEX` map to the indices.
 
+**Prompts:** clients that support MCP prompts (Claude Desktop shows them as starters) also get `analyze_stock`, `compare_stocks` and `market_snapshot`, ready-made facts-only briefings.
+
+Every tool is read-only and annotated as such, so well-behaved clients can call them without asking for confirmation each time.
+
 ## Try asking
 
+- "What's the P/E of Infosys, and how does it compare with Tata Consultancy?" (it looks up the tickers itself)
 - "Give me a quick read on HDFCBANK: price, trend and valuation."
 - "Rank INFY, TCS, WIPRO and HCLTECH by 1-year return and by P/E."
 - "Is Reliance expensive compared with other oil and gas names?"
@@ -134,6 +140,7 @@ Contributions welcome: new peer groups, a better data source behind the same int
 - [x] Quotes, signals, comparison
 - [x] Fundamentals and sector peers
 - [x] Caching, retries, CI, agent skill
+- [x] Name-to-ticker search, built-in prompts, read-only tool annotations
 - [ ] Portfolio view: pass holdings, get concentration, sector mix and drawdown
 - [ ] Pluggable data sources behind one interface
 - [ ] Nifty 50 screener (oversold + cheap vs peers)
