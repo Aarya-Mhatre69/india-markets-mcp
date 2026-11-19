@@ -75,7 +75,8 @@ def test_search_symbol_is_callable_through_the_protocol(monkeypatch):
     monkeypatch.setattr(data, "_download_search", lambda q, n: hits)
 
     result = run(lambda c: c.call_tool("search_symbol", {"query": "tata consultancy"}))
-    rows = result.data
+    payload = result.structured_content  # protocol-level; client-side `.data` wrappers differ by version
+    rows = payload["result"] if isinstance(payload, dict) and "result" in payload else payload
     assert rows[0]["symbol"] == "TCS" and rows[0]["exchange"] == "NSE"
 
 
