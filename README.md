@@ -1,3 +1,4 @@
+<!-- mcp-name: io.github.Aarya-Mhatre69/india-markets-mcp -->
 <div align="center">
 
 # 🇮🇳 india-markets-mcp
@@ -49,7 +50,7 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 - **Signals you can audit.** The trend regime is a plain rule on the 50/200-day averages and the 200-day slope, and the tool returns the rule text, so the agent can explain *why*, not just emit a label.
 - **Honest about gaps.** Missing data is `null`, never guessed. Unknown tickers and upstream outages raise clear errors.
 - **Polite to the data source.** 5-minute cache, 3 retries with backoff, bounded fan-out.
-- **Tested offline.** Indicator and tool logic is pure pandas with 50 tests (including contract tests for the tool schemas), run in CI on Linux, macOS and Windows.
+- **Tested offline.** Indicator and tool logic is pure pandas with 53 tests (including contract tests for the tool schemas), run in CI on Linux, macOS and Windows.
 - **Comes with an agent skill** that teaches the agent when to use each tool and keeps answers to facts, not buy/sell calls.
 
 ## Tools

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Aarya-Mhatre69/india-markets-mcp",
+  "title": "India Markets",
+  "description": "NSE/BSE quotes, technical signals, valuation and sector peers for AI agents. No API key.",
+  "repository": {
+    "url": "https://github.com/Aarya-Mhatre69/india-markets-mcp",
+    "source": "github"
+  },
+  "version": "0.3.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "india-markets-mcp",
+      "version": "0.3.0",
+      "runtimeHint": "uvx",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}
