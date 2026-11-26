@@ -7,6 +7,7 @@ Quotes, transparent technical signals, valuation and sector comparison for NSE/B
 
 [![CI](https://github.com/Aarya-Mhatre69/india-markets-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Aarya-Mhatre69/india-markets-mcp/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/india-markets-mcp.svg)](https://pypi.org/project/india-markets-mcp/)
+[![Aarya-Mhatre69/india-markets-mcp MCP server](https://glama.ai/mcp/servers/Aarya-Mhatre69/india-markets-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Aarya-Mhatre69/india-markets-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![MCP](https://img.shields.io/badge/MCP-server-8A2BE2)
